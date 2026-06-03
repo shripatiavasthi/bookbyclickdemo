@@ -660,6 +660,228 @@
   margin-left: 10px;
 }
 
+.flight-details-modal {
+  width: min(428px, 100%);
+}
+
+.flight-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #ececec;
+}
+
+.flight-details-header h2 {
+  margin: 0;
+  color: #2e2e2e;
+}
+
+.flight-details-body {
+  padding: 18px 18px 12px;
+  overflow-y: auto;
+}
+
+.flight-details-summary {
+  margin-bottom: 20px;
+}
+
+.flight-details-summary h3,
+.flight-details-summary p {
+  margin: 0;
+}
+
+.flight-details-summary p {
+  margin-top: 2px;
+  color: #333;
+}
+
+.journey-timeline {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.journey-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.journey-rail {
+  display: grid;
+  justify-items: center;
+}
+
+.journey-node {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #373737;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: #373737;
+}
+
+.journey-node.arrive svg {
+  transform: rotate(180deg);
+}
+
+.journey-line {
+  width: 1px;
+  min-height: 44px;
+  background: #4d4d4d;
+  margin-top: 4px;
+}
+
+.journey-content {
+  padding-top: 2px;
+}
+
+.journey-time {
+  margin: 0;
+  color: #2d2d2d;
+}
+
+.journey-airport {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2d2d2d;
+}
+
+.journey-leg {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  color: #3b3b3b;
+}
+
+.journey-leg p,
+.journey-leg em {
+  margin: 0;
+}
+
+.journey-leg em {
+  display: block;
+  margin-top: 2px;
+  color: #767676;
+  font-style: italic;
+}
+
+.journey-leg-icon {
+  width: 22px;
+  height: 22px;
+  color: #3047a3;
+  flex: 0 0 auto;
+}
+
+.journey-leg-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.layover-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 2px dashed #3b3b3b;
+  border-radius: 999px;
+  color: #343434;
+  margin-top: -2px;
+}
+
+.layover-pill svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.baggage-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 18px 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.baggage-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.baggage-item p,
+.baggage-item strong {
+  margin: 0;
+  display: block;
+}
+
+.baggage-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.baggage-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.baggage-icon.cabin {
+  color: #2ec45d;
+}
+
+.baggage-icon.checkin {
+  color: #2ec45d;
+}
+
+.flight-details-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px 18px;
+}
+
+.fare-preview {
+  display: grid;
+  gap: 4px;
+}
+
+.fare-preview span {
+  color: #2f2f2f;
+}
+
+.fare-preview strong {
+  color: #1754b3;
+  font-size: 1.5rem;
+}
+
+.flight-details-select {
+  min-width: 148px;
+  height: 46px;
+  border: 0;
+  border-radius: 8px;
+  background: #1e73ef;
+  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.flight-details-select span {
+  color: #ffb32b;
+  margin-left: 10px;
+}
+
 .fare-modal-overlay {
   position: fixed;
   inset: 0;
@@ -1269,6 +1491,20 @@
 
   .filter-apply {
     min-width: 150px;
+  }
+
+  .baggage-row,
+  .flight-details-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-details-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flight-details-select {
+    width: 100%;
   }
 
   .fare-modal-overlay {

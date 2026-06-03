@@ -130,6 +130,36 @@ const flights = [
   },
 ]
 
+const flightDetailSegments = [
+  {
+    time: 'Thu, 31 Jul • 08:00',
+    airport: 'Mumbai - Chhatrapati Shivaji Airport',
+    leg: 'IndiGo • AI-860 • 1h 5m',
+    operator: 'Operated by : InterGlobe Aviation Limited',
+    kind: 'depart',
+  },
+  {
+    time: 'Thu, 31 Jul • 09:05',
+    airport: 'Ahmedabad - Sardar Vallabhbhai Patel Intl',
+    kind: 'arrive',
+  },
+  {
+    layover: 'Layover : 1h 20m (AMD - Ahmedabad)',
+  },
+  {
+    time: 'Thu, 31 Jul • 10:25',
+    airport: 'Ahmedabad - Sardar Vallabhbhai Patel Intl',
+    leg: 'IndiGo • AI-860 • 1h 45m',
+    operator: 'Operated by : InterGlobe Aviation Limited',
+    kind: 'depart',
+  },
+  {
+    time: 'Thu, 31 Jul • 12:10',
+    airport: 'Delhi - Indira Gandhi International Airport',
+    kind: 'arrive',
+  },
+]
+
 function IconUser() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -382,6 +412,30 @@ function IconCrossCircle() {
   )
 }
 
+function IconBag() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 7V6a3 3 0 0 1 6 0v1h2a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V9a2 2 0 0 1 2-2Zm2 0h2V6a1 1 0 1 0-2 0Zm-4 3v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-8h-1v2h-2v-2h-4v2H8v-2Z" />
+    </svg>
+  )
+}
+
+function IconTrash() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 3h6l1 2h4v2H4V5h4Zm1 6h2v8h-2Zm4 0h2v8h-2ZM7 9h2v8H7Zm-1 12a2 2 0 0 1-2-2V8h16v11a2 2 0 0 1-2 2Z" />
+    </svg>
+  )
+}
+
+function IconClock() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 5h-2v6l4 2 1-1.73-3-1.52Z" />
+    </svg>
+  )
+}
+
 const timeIcons = {
   sunrise: IconSunrise,
   sun: IconSun,
@@ -393,6 +447,7 @@ function App() {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [isModifyMode, setIsModifyMode] = useState(false)
   const [selectedFlight, setSelectedFlight] = useState(null)
+  const [detailFlight, setDetailFlight] = useState(null)
   const [priceValue, setPriceValue] = useState(40)
 
   return (
@@ -622,7 +677,11 @@ function App() {
               </div>
 
               <div className="flight-card-actions">
-                <button type="button" className="details-button text-body">
+                <button
+                  type="button"
+                  className="details-button text-body"
+                  onClick={() => setDetailFlight(flight)}
+                >
                   Flight Details
                 </button>
                 <button
@@ -837,6 +896,118 @@ function App() {
 
             <div className="fare-modal-foot">
               <p className="text-body">Please select a fare to continue</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {detailFlight ? (
+        <div className="filter-modal-overlay" onClick={() => setDetailFlight(null)}>
+          <div
+            className="filter-modal flight-details-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="flight-details-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flight-details-header">
+              <h2 id="flight-details-title" className="text-heading">
+                Flight Details
+              </h2>
+              <button
+                type="button"
+                className="filter-modal-close"
+                onClick={() => setDetailFlight(null)}
+                aria-label="Close flight details"
+              >
+                <IconClose />
+              </button>
+            </div>
+
+            <div className="flight-details-body">
+              <div className="flight-details-summary">
+                <h3 className="text-heading">
+                  {detailFlight.to} → {detailFlight.from}
+                </h3>
+                <p className="text-subheading">
+                  {detailFlight.stopTag === 'Non-stop' ? '1 stop' : '1 stop'} • 4h 10m
+                </p>
+              </div>
+
+              <div className="journey-timeline">
+                {flightDetailSegments.map((segment, index) =>
+                  segment.layover ? (
+                    <div key={`layover-${index}`} className="layover-pill">
+                      <IconClock />
+                      <span className="text-body">{segment.layover}</span>
+                    </div>
+                  ) : (
+                    <div key={`${segment.time}-${index}`} className="journey-row">
+                      <div className="journey-rail">
+                        <span className={`journey-node ${segment.kind}`}>
+                          <IconPlane />
+                        </span>
+                        {index !== flightDetailSegments.length - 1 ? (
+                          <span className="journey-line" />
+                        ) : null}
+                      </div>
+                      <div className="journey-content">
+                        <p className="journey-time text-subheading">{segment.time}</p>
+                        <h4 className="journey-airport">{segment.airport}</h4>
+                        {segment.leg ? (
+                          <div className="journey-leg">
+                            <span className="journey-leg-icon">
+                              <IconAirlines />
+                            </span>
+                            <div>
+                              <p className="text-body">{segment.leg}</p>
+                              <em className="text-body">{segment.operator}</em>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  ),
+                )}
+              </div>
+
+              <div className="baggage-row">
+                <div className="baggage-item">
+                  <span className="baggage-icon cabin">
+                    <IconBag />
+                  </span>
+                  <div>
+                    <strong className="text-body">Cabin Baggage:</strong>
+                    <p className="text-body">7Kgs / Adult</p>
+                  </div>
+                </div>
+                <div className="baggage-item">
+                  <span className="baggage-icon checkin">
+                    <IconTrash />
+                  </span>
+                  <div>
+                    <strong className="text-body">Check-in Baggage:</strong>
+                    <p className="text-body">15Kgs / Adult</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flight-details-footer">
+              <div className="fare-preview">
+                <span className="text-subheading">Economy</span>
+                <strong>{detailFlight.price}</strong>
+              </div>
+              <button
+                type="button"
+                className="flight-details-select"
+                onClick={() => {
+                  setDetailFlight(null)
+                  setSelectedFlight(detailFlight)
+                }}
+              >
+                SELECT <span>➤</span>
+              </button>
             </div>
           </div>
         </div>
