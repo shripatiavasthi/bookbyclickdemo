@@ -1,0 +1,57 @@
+:root {
+  --font-heading: 600;
+  --font-subheading: 500;
+  --font-body: 400;
+
+  --text-heading-size: 1.5rem;
+  --text-subheading-size: 1rem;
+  --text-body-size: 0.86rem;
+  --text-small-size: 0.78rem;
+  --text-label-size: 0.72rem;
+
+  --text-heading-line: 1.15;
+  --text-subheading-line: 1.25;
+  --text-body-line: 1.45;
+  --text-small-line: 1.35;
+  --text-label-line: 1.2;
+}
+
+.text-heading {
+  font-size: var(--text-heading-size);
+  line-height: var(--text-heading-line);
+  font-weight: var(--font-heading);
+}
+
+.text-subheading {
+  font-size: var(--text-subheading-size);
+  line-height: var(--text-subheading-line);
+  font-weight: var(--font-subheading);
+}
+
+.text-body {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line);
+  font-weight: var(--font-body);
+}
+
+.text-small {
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line);
+  font-weight: var(--font-body);
+}
+
+.text-label {
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-line);
+  font-weight: 500;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --text-heading-size: 1.3rem;
+    --text-subheading-size: 0.94rem;
+    --text-body-size: 0.82rem;
+    --text-small-size: 0.74rem;
+    --text-label-size: 0.7rem;
+  }
+}
